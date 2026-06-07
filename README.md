@@ -62,7 +62,7 @@ irm https://ghfast.top/https://raw.githubusercontent.com/svier0/scoop-ghproxy/ma
 
 6. 切换代理地址
 ```powershell
-scoop config GITHUB_PROXY https://ghproxy.top
+scoop config GITHUB_PROXY https://ghfast.top
 ```
 
 ### 就一行命令 感觉其实不用写说明
