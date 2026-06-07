@@ -329,47 +329,58 @@ function Install-Scoop {
 # ============================================================
 
 function Show-Menu {
-    Write-Host $ghproxy_status
     Write-Host ''
     Write-Host '========================================' -ForegroundColor Cyan
     Write-Host '      Scoop GitHub Proxy' -ForegroundColor Cyan
     Write-Host '========================================' -ForegroundColor Cyan
     Write-Host ''
-    Write-Host '  1. 开启注入'
-    Write-Host '  2. 取消注入，恢复原版'
-    Write-Host '  3. 查看当前状态'
-    Write-Host '  4. 切换代理地址并注入 (默认)'
-    Write-Host '  5. 输入代理地址安装scoop'
-    Write-Host ''
-    $choice = Read-Host '请输入 [1-5]'
-    if ($choice -eq '1') {
-        # 如果已有配置，沿用现有代理地址
-        $existing = Get-ProxyConfig
-        if ($existing) { $script:ProxyUrl = $existing }
-        Enable-Proxy
-    } elseif ($choice -eq '2') {
-        Disable-Proxy
-    } elseif ($choice -eq '3') {
-        Show-Status
-    } elseif ($choice -eq '' -or $choice -eq '4') {
-        $newProxy = Read-Host '请输入新的代理地址'
-        if ($newProxy) {
-            $script:ProxyUrl = $newProxy
-            Enable-Proxy
+
+    if ( $ghproxy_status -ge 11){
+        Write-Host '  5. 输入代理地址安装scoop'
+        Write-Host ''
+        $choice = Read-Host '请输入 [5]'
+        if ($choice -eq '5') {
+            $newProxy = Read-Host '请输入新的代理地址'
+            if ($newProxy) {
+                $script:ProxyUrl = $newProxy
+                Write-Host "安装Scoop..."
+            } else {
+                Write-Host '未输入代理地址，直连安装。' -ForegroundColor Yellow
+            }
+            Install-Scoop
         } else {
-            Write-Host '未输入代理地址，已取消。' -ForegroundColor Yellow
+            Write-Host "无效输入: $choice" -ForegroundColor Red
         }
-    } elseif ($choice -eq '5') {
-        $newProxy = Read-Host '请输入新的代理地址'
-        if ($newProxy) {
-            $script:ProxyUrl = $newProxy
-            Write-Host "安装Scoop..."
+    } elseif ( $ghproxy_status -eq 1) {
+        Write-Host '  2. 取消注入，恢复原版'
+        Write-Host ''
+        $choice = Read-Host '请输入 [2]'
+        if ($choice -eq '2') {
+            Disable-Proxy
         } else {
-            Write-Host '未输入代理地址，直连安装。' -ForegroundColor Yellow
+            Write-Host "无效输入: $choice" -ForegroundColor Red
         }
-        Install-Scoop
     } else {
-        Write-Host "无效输入: $choice" -ForegroundColor Red
+        Write-Host '  1. 开启注入'
+        Write-Host '  4. 指定代理地址并注入'
+        Write-Host ''
+        $choice = Read-Host '请输入 [1,4]'
+        if ($choice -eq '1') {
+            # 如果已有配置，沿用现有代理地址
+            $existing = Get-ProxyConfig
+            if ($existing) { $script:ProxyUrl = $existing }
+            Enable-Proxy
+        } elseif ($choice -eq '' -or $choice -eq '4') {
+            $newProxy = Read-Host '请输入新的代理地址'
+            if ($newProxy) {
+                $script:ProxyUrl = $newProxy
+                Enable-Proxy
+            } else {
+                Write-Host '未输入代理地址，已取消。' -ForegroundColor Yellow
+            }
+        } else {
+            Write-Host "无效输入: $choice" -ForegroundColor Red
+        }
     }
 }
 
@@ -378,4 +389,4 @@ function Show-Menu {
 # ============================================================
 
 $ghproxy_status = Show-Status
-Show-Menu
+if(-not $ghproxy_notshowmenu)Show-Menu
