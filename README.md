@@ -61,3 +61,4 @@ irm https://ghfast.top/https://raw.githubusercontent.com/svier0/scoop-ghproxy/ma
 5. 输入命令后输入1回车是干嘛的 跟4一样 不过不用再输入代理地址了 如果你之前设置过代理地址的话
 
 ### 就一行命令 感觉其实不用写说明
+<img width="957" height="1551" alt="PixPin_2026-06-07_17-29-26" src="https://github.com/user-attachments/assets/3b432700-4ba2-4efa-84de-d41dd89b39d3" />
