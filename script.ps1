@@ -2,18 +2,9 @@
 # 为 Scoop 的 GitHub 下载自动拼接代理，解决国内访问 GitHub 不稳定的问题
 #
 # 用法:
-#   irm https://gh-proxy.com/https://raw.githubusercontent.com/svier0/scoop-ghproxy/master/script.ps1 | iex    # 交互菜单（推荐）
-#   本地运行也支持直接传参:
-#   .\scoop-github-proxy.ps1 -Action enable
-#   .\scoop-github-proxy.ps1 -Action disable
-#   .\scoop-github-proxy.ps1 -Action status
-#   .\scoop-github-proxy.ps1 -Action enable -ProxyUrl https://mirror.ghproxy.com
+#   irm https://.../scoop-github-proxy.ps1 | iex    # 交互菜单
 
-param(
-    [ValidateSet('enable', 'disable', 'status')]
-    [string]$Action = '',
-    [string]$ProxyUrl = 'https://gh-proxy.com'
-)
+$script:ProxyUrl = 'https://gh-proxy.com'
 
 $ErrorActionPreference = 'Stop'
 $patchMarker = '# === SCOOP-GITHUB-PROXY-PATCHED ==='
@@ -328,8 +319,8 @@ function Show-Menu {
     Write-Host '      Scoop GitHub Proxy' -ForegroundColor Cyan
     Write-Host '========================================' -ForegroundColor Cyan
     Write-Host ''
-    Write-Host '  1. 开始注入 (默认)'
-    Write-Host '  2. 恢复文件'
+    Write-Host '  1. 启用代理 (默认)'
+    Write-Host '  2. 禁用代理'
     Write-Host '  3. 查看状态'
     Write-Host '  4. 切换代理地址'
     Write-Host ''
@@ -360,14 +351,4 @@ function Show-Menu {
 # Main
 # ============================================================
 
-if ($Action) {
-    # 本地直接传参运行
-    switch ($Action) {
-        'enable'  { Enable-Proxy }
-        'disable' { Disable-Proxy }
-        'status'  { Show-Status }
-    }
-} else {
-    # irm ... | iex 入口，显示交互菜单
-    Show-Menu
-}
+Show-Menu
