@@ -62,3 +62,6 @@ irm https://ghfast.top/https://raw.githubusercontent.com/svier0/scoop-ghproxy/ma
 
 ### 就一行命令 感觉其实不用写说明
 <img width="957" height="1551" alt="PixPin_2026-06-07_17-29-26" src="https://github.com/user-attachments/assets/3b432700-4ba2-4efa-84de-d41dd89b39d3" />
+
+还可以参考example.ps1将自己常用的软件写进脚本，重装系统或者换一台电脑后一行命令直接全部安装
+<img width="1017" height="3031" alt="PixPin_2026-06-08_01-27-45" src="https://github.com/user-attachments/assets/c9734051-9bb7-47c9-8c31-aace8073e9ad" />
