@@ -390,8 +390,4 @@ function Show-Menu {
 
 $ghproxy_status = Show-Status
 
-Write-Host ''
-Write-Host $ghproxy_hiddenmenu #走到这里挂了 走不下去了？
-if (-not (Get-Variable ghproxy_hiddenmenu -ErrorAction SilentlyContinue) -or $ghproxy_hiddenmenu -ne $true) {
-    Show-Menu
-}
+Show-Menu
