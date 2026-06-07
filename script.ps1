@@ -399,9 +399,9 @@ if ($varExist) {
     Write-Host "变量【未定义】，值: $ghproxy_hiddenmenu"
 }
 
-if (-not $ghproxy_hiddenmenu) {
+if (-not Get-Variable ghproxy_hiddenmenu -ErrorAction SilentlyContinue) {
 
-    Write-Host "变量【false】，值: $ghproxy_hiddenmenu"
+    Write-Host "变量【未定义】，值: $ghproxy_hiddenmenu"
 }
 
 Show-Menu
