@@ -389,7 +389,7 @@ function Show-Menu {
 # ============================================================
 
 $ghproxy_status = Show-Status
-Write-Host ghproxy_notshowmenu
-if (-not (Get-Variable ghproxy_notshowmenu -ErrorAction SilentlyContinue) -or $ghproxy_notshowmenu -ne $true) {
+
+if (-not (Get-Variable $ghproxy_notshowmenu -ErrorAction SilentlyContinue) -or $ghproxy_notshowmenu -ne $true) {
     Show-Menu
 }
