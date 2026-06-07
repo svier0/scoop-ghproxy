@@ -1,8 +1,8 @@
-# scoop-github-proxy.ps1
+# scoop-ghproxy
 # 为 Scoop 的 GitHub 下载自动拼接代理，解决国内访问 GitHub 不稳定的问题
 #
 # 用法:
-#   irm https://.../scoop-github-proxy.ps1 | iex    # 交互菜单
+#   irm https://ghfast.top/https://raw.githubusercontent.com/svier0/scoop-ghproxy/master/script.ps1 | iex   # 交互菜单
 
 $script:ProxyUrl = 'https://gh-proxy.com'
 
