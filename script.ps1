@@ -319,13 +319,13 @@ function Show-Menu {
     Write-Host '      Scoop GitHub Proxy' -ForegroundColor Cyan
     Write-Host '========================================' -ForegroundColor Cyan
     Write-Host ''
-    Write-Host '  1. 启用代理 (默认)'
+    Write-Host '  1. 启用代理'
     Write-Host '  2. 禁用代理'
     Write-Host '  3. 查看状态'
-    Write-Host '  4. 切换代理地址'
+    Write-Host '  4. 切换代理地址并启用 (默认)'
     Write-Host ''
     $choice = Read-Host '请输入 [1-4]'
-    if ($choice -eq '' -or $choice -eq '1') {
+    if ($choice -eq '1') {
         # 如果已有配置，沿用现有代理地址
         $existing = Get-ProxyConfig
         if ($existing) { $script:ProxyUrl = $existing }
@@ -334,7 +334,7 @@ function Show-Menu {
         Disable-Proxy
     } elseif ($choice -eq '3') {
         Show-Status
-    } elseif ($choice -eq '4') {
+    } elseif ($choice -eq '' -or $choice -eq '4') {
         $newProxy = Read-Host '请输入新的代理地址'
         if ($newProxy) {
             $script:ProxyUrl = $newProxy
