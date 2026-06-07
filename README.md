@@ -1,2 +1,63 @@
 # scoop-ghproxy
-针对国内用户使用Scoop 的patch脚本，使scoop能自动识别Github下载链接并使用代理服务
+
+## Scoop 国内使用无法访问github的问题
+- 如果你安装scoop之前已经开启了科学上网，请关闭这个网页
+- 如果你没有使用网络代理软件的习惯，不想操作繁琐的换源配置，只想在国内网络快速使用scoop，请往下看
+
+## 前提条件
+
+[PowerShell](https://learn.microsoft.com/zh-cn/powershell/) 版本在 5.1 或以上，如果没有 PowerShell 大于 5.1 版本，可以下载安装 [PowerShell Core](https://github.com/PowerShell/PowerShell)。运行以下命令查看：
+
+```powershell
+$PSVersionTable.PSVersion.Major # 应该 >= 5.1
+```
+
+其次，允许本地运行 PowerShell 脚本，以管理员打开 PowerShell，运行以下命令，回答 Y：
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+## 使用说明
+
+1. 未安装过scoop
+
+打开 PowerShell，运行以下命令，
+
+```powershell
+irm https://ghfast.top/https://raw.githubusercontent.com/svier0/scoop-ghproxy/master/script.ps1 | iex
+```
+按照提示 输入 5 回车
+输入代理网址 如：https://ghfast.top 或 https://gh-proxy.com
+下一步
+没有下一步了 你可以愉快的scoop install 你需要的软件名称
+
+2. 已安装过scoop
+
+打开 PowerShell，运行以下命令，
+
+```powershell
+irm https://ghfast.top/https://raw.githubusercontent.com/svier0/scoop-ghproxy/master/script.ps1 | iex
+```
+按照提示 输入 4 回车
+输入代理网址 如：https://ghfast.top 或 https://gh-proxy.com
+下一步
+没有下一步了 你可以愉快的scoop install 你需要的软件名称
+
+3. 检测当前scoop注入状态
+
+```powershell
+irm https://ghfast.top/https://raw.githubusercontent.com/svier0/scoop-ghproxy/master/script.ps1 | iex
+```
+按照提示 输入 3 回车
+
+4. 取消注入恢复scoop到原版
+
+```powershell
+irm https://ghfast.top/https://raw.githubusercontent.com/svier0/scoop-ghproxy/master/script.ps1 | iex
+```
+按照提示 输入 2 回车
+
+5. 输入命令后输入1回车是干嘛的 跟4一样 不过不用再输入代理地址了 如果你之前设置过代理地址的话
+
+### 就一行命令 感觉其实不用写说明
