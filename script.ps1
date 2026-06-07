@@ -392,3 +392,4 @@ $ghproxy_status = Show-Status
 if(-not $ghproxy_notshowmenu) {
     Show-Menu 
 }
+Write-Host $ghproxy_notshowmenu
