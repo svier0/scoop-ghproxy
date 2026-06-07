@@ -319,13 +319,13 @@ function Show-Menu {
     Write-Host '      Scoop GitHub Proxy' -ForegroundColor Cyan
     Write-Host '========================================' -ForegroundColor Cyan
     Write-Host ''
-    Write-Host '  1. 启用代理'
-    Write-Host '  2. 禁用代理'
-    Write-Host '  3. 查看状态'
-    Write-Host '  4. 切换代理地址并启用 (默认)'
+    Write-Host '  1. 注入代理地址'
+    Write-Host '  2. 取消注入，恢复原版'
+    Write-Host '  3. 查看当前状态'
+    Write-Host '  4. 切换代理地址并注入 (默认)'
     Write-Host '  5. 输入代理地址安装scoop'
     Write-Host ''
-    $choice = Read-Host '请输入 [1-4]'
+    $choice = Read-Host '请输入 [1-5]'
     if ($choice -eq '1') {
         # 如果已有配置，沿用现有代理地址
         $existing = Get-ProxyConfig
