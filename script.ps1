@@ -329,6 +329,7 @@ function Install-Scoop {
 # ============================================================
 
 function Show-Menu {
+    Write-Host $ghproxy_status
     Write-Host ''
     Write-Host '========================================' -ForegroundColor Cyan
     Write-Host '      Scoop GitHub Proxy' -ForegroundColor Cyan
