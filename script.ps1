@@ -390,4 +390,11 @@ function Show-Menu {
 
 $ghproxy_status = Show-Status
 
+$varExist = Get-Variable ghproxy_hiddenmenu -ErrorAction SilentlyContinue
+if ($varExist) {
+    Write-Host "变量【存在】，值: $ghproxy_hiddenmenu"
+} else {
+    Write-Host "变量【未定义】，值: $ghproxy_hiddenmenu"
+}
+
 Show-Menu
