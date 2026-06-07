@@ -258,14 +258,14 @@ function Show-Status {
     $scoopDir = Find-ScoopDir
     if (!$scoopDir) {
         Write-Host "Scoop: 未安装" -ForegroundColor Red
-        return
+        return 11
     }
     Write-Host "Scoop 路径: $scoopDir"
 
     $downloadPs1 = Get-DownloadPs1
     if (!$downloadPs1) {
-        Write-Host "download.ps1: 未找到（Scoop 可能未完成初始化）" -ForegroundColor Red
-        return
+        Write-Host "Scoop: 未安装" -ForegroundColor Red
+        return 12
     }
 
     $patched = Test-IsPatched $downloadPs1
@@ -292,10 +292,11 @@ function Show-Status {
     if ($patched) {
         Write-Host "✓ 代理已启用，GitHub 下载会自动走 $proxyAddr" -ForegroundColor Green
         Write-Host "  如 Scoop 自更新后代理失效，重新运行本脚本即可。"
+        return 1
     } else {
         Write-Host "✗ 代理未启用。运行本脚本（不加参数）即可启用。" -ForegroundColor Yellow
+        return 0
     }
-    Write-Host ""
 }
 
 function Get-ProxyConfig {
@@ -309,6 +310,20 @@ function Get-ProxyConfig {
     } catch { return $null }
 }
 
+function Install-Scoop {
+    Write-Host "安装Scoop..."
+    if ($script:ProxyUrl) {
+        irm "$($script:ProxyUrl)/https://raw.githubusercontent.com/ScoopInstaller/Install/master/install.ps1" | iex
+        scoop config scoop_repo "$($script:ProxyUrl)https://github.com/ScoopInstaller/Scoop.git"
+        Enable-Proxy
+    } else {
+        irm "https://raw.githubusercontent.com/ScoopInstaller/Install/master/install.ps1" | iex
+        scoop config scoop_repo "https://github.com/ScoopInstaller/Scoop.git"
+    }
+    scoop install 7zip
+    scoop install git
+}
+
 # ============================================================
 # 交互菜单（irm ... | iex 入口）
 # ============================================================
@@ -319,7 +334,7 @@ function Show-Menu {
     Write-Host '      Scoop GitHub Proxy' -ForegroundColor Cyan
     Write-Host '========================================' -ForegroundColor Cyan
     Write-Host ''
-    Write-Host '  1. 注入代理地址'
+    Write-Host '  1. 开启注入'
     Write-Host '  2. 取消注入，恢复原版'
     Write-Host '  3. 查看当前状态'
     Write-Host '  4. 切换代理地址并注入 (默认)'
@@ -348,16 +363,10 @@ function Show-Menu {
         if ($newProxy) {
             $script:ProxyUrl = $newProxy
             Write-Host "安装Scoop..."
-            irm "$($script:ProxyUrl)/https://raw.githubusercontent.com/ScoopInstaller/Install/master/install.ps1" | iex
-            scoop config scoop_repo "$($script:ProxyUrl)https://github.com/ScoopInstaller/Scoop.git"
-            Enable-Proxy
         } else {
             Write-Host '未输入代理地址，直连安装。' -ForegroundColor Yellow
-            irm "https://raw.githubusercontent.com/ScoopInstaller/Install/master/install.ps1" | iex
-            scoop config scoop_repo "https://github.com/ScoopInstaller/Scoop.git"
         }
-        scoop install 7zip
-        scoop install git
+        Install-Scoop
     } else {
         Write-Host "无效输入: $choice" -ForegroundColor Red
     }
@@ -367,4 +376,5 @@ function Show-Menu {
 # Main
 # ============================================================
 
+$ghproxy_status = Show-Status
 Show-Menu
