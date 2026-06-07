@@ -12,7 +12,7 @@ $env:SCOOP='D:\Scoop'
 [Environment]::SetEnvironmentVariable('SCOOP', $env:SCOOP, 'User')
 
 Write-Host "安装scoop 并注入 scoop-ghproxy"
-$ghproxy_notshowmenu = $true
+$ghproxy_hiddenmenu = $true
 irm "https://ghfast.top/https://raw.githubusercontent.com/svier0/scoop-ghproxy/master/script.ps1" | iex
 Install-Scoop
 
