@@ -19,8 +19,6 @@ Install-Scoop
 # 设置缓存目录（下载的安装包存这里）
 scoop config cache_path 'D:\Scoop\cache'
 
-scoop install 7zip
-scoop install git
 
 scoop bucket add extras
 scoop bucket add sysinternals
