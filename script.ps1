@@ -2,7 +2,7 @@
 # 为 Scoop 的 GitHub 下载自动拼接代理，解决国内访问 GitHub 不稳定的问题
 #
 # 用法:
-#   irm https://raw.githubusercontent.com/svier0/scoop-ghproxy/refs/heads/main/script.ps1 | iex    # 交互菜单（推荐）
+#   irm https://gh-proxy.com/https://raw.githubusercontent.com/svier0/scoop-ghproxy/refs/heads/main/script.ps1 | iex    # 交互菜单（推荐）
 #   本地运行也支持直接传参:
 #   .\scoop-github-proxy.ps1 -Action enable
 #   .\scoop-github-proxy.ps1 -Action disable
