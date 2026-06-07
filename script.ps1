@@ -323,6 +323,7 @@ function Show-Menu {
     Write-Host '  2. 禁用代理'
     Write-Host '  3. 查看状态'
     Write-Host '  4. 切换代理地址并启用 (默认)'
+    Write-Host '  5. 输入代理地址安装scoop'
     Write-Host ''
     $choice = Read-Host '请输入 [1-4]'
     if ($choice -eq '1') {
@@ -342,6 +343,21 @@ function Show-Menu {
         } else {
             Write-Host '未输入代理地址，已取消。' -ForegroundColor Yellow
         }
+    } elseif ($choice -eq '5') {
+        $newProxy = Read-Host '请输入新的代理地址'
+        if ($newProxy) {
+            $script:ProxyUrl = $newProxy
+            Write-Host "安装Scoop..."
+            irm "$($script:ProxyUrl)/https://raw.githubusercontent.com/ScoopInstaller/Install/master/install.ps1" | iex
+            scoop config scoop_repo "$($script:ProxyUrl)https://github.com/ScoopInstaller/Scoop.git"
+            Enable-Proxy
+        } else {
+            Write-Host '未输入代理地址，直连安装。' -ForegroundColor Yellow
+            irm "https://raw.githubusercontent.com/ScoopInstaller/Install/master/install.ps1" | iex
+            scoop config scoop_repo "https://github.com/ScoopInstaller/Scoop.git"
+        }
+        scoop install 7zip
+        scoop install git
     } else {
         Write-Host "无效输入: $choice" -ForegroundColor Red
     }
