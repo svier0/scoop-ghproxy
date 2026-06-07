@@ -390,6 +390,8 @@ function Show-Menu {
 
 $ghproxy_status = Show-Status
 
+### 菜单能出来 中间这里走不了
+Write-Host "111111"
 $varExist = Get-Variable ghproxy_hiddenmenu -ErrorAction SilentlyContinue
 if ($varExist) {
     Write-Host "变量【存在】，值: $ghproxy_hiddenmenu"
