@@ -20,8 +20,8 @@ Install-Scoop
 scoop config cache_path 'D:\Scoop\cache'
 
 
-scoop bucket add extras
-scoop bucket add sysinternals
+scoop bucket add extras https://ghfast.top/https://github.com/ScoopInstaller/Extras
+scoop bucket add sysinternals https://ghfast.top/https://github.com/niheaven/scoop-sysinternals
 
 scoop install extras/windhawk
 scoop install extras/rustdesk
@@ -43,4 +43,15 @@ scoop install extras/cheat-engine
 scoop install extras/qimgv-video
 scoop install extras/clash-verge-rev
 scoop install extras/64gram
+scoop install extras/zed
+scoop install extras/geekuninstaller
 
+scoop bucket add zedg https://ghfast.top/https://github.com/x6nux/scoop-zedg
+scoop install zedg
+
+scoop bucket add svier0 https://ghfast.top/https://github.com/svier0/scoopbucket
+scoop install svier0/MouseInc
+scoop install svier0/aardio -s
+scoop install svier0/MusicFree -s
+scoop install svier0/pixpin -s
+scoop install svier0/HbuilderX -s
