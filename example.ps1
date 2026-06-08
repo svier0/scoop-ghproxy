@@ -55,3 +55,13 @@ scoop install svier0/aardio -s
 scoop install svier0/MusicFree -s
 scoop install svier0/pixpin -s
 scoop install svier0/HbuilderX -s
+
+
+
+
+
+
+
+
+
+
