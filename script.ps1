@@ -316,12 +316,16 @@ function Install-Scoop {
         irm "$($script:ProxyUrl)/https://raw.githubusercontent.com/ScoopInstaller/Install/master/install.ps1" | iex
         scoop config scoop_repo "$($script:ProxyUrl)https://github.com/ScoopInstaller/Scoop.git"
         Enable-Proxy
+        scoop install git
+        scoop bucket rm main
+        scoop bucket add main "$($script:ProxyUrl)/https://github.com/ScoopInstaller/Main"
+        scoop install 7zip
     } else {
         irm "https://raw.githubusercontent.com/ScoopInstaller/Install/master/install.ps1" | iex
         scoop config scoop_repo "https://github.com/ScoopInstaller/Scoop.git"
+        scoop install git
+        scoop install 7zip
     }
-    scoop install 7zip
-    scoop install git
 }
 
 # ============================================================
