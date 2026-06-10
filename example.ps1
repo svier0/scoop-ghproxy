@@ -46,6 +46,7 @@ scoop install extras/64gram
 scoop install extras/zed
 scoop install extras/geekuninstaller
 scoop install main/python
+scoop install main/bun
 
 scoop bucket add zedg https://ghfast.top/https://github.com/x6nux/scoop-zedg
 scoop install zedg
