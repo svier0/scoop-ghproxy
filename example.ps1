@@ -6,31 +6,17 @@
 
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
-# 有需要可以通过设置环境变量，来设置安装位置
-# 设置主目录（应用默认装这里）
-$env:SCOOP='D:\Scoop'
-[Environment]::SetEnvironmentVariable('SCOOP', $env:SCOOP, 'User')
+irm https://ghfast.top/https://raw.githubusercontent.com/svier0/scoop-ghproxy/master/fastinstall.ps1 | iex
 
-Write-Host "安装scoop 并注入 scoop-ghproxy"
-$ghproxy_hiddenmenu = $true
-irm "https://ghfast.top/https://raw.githubusercontent.com/svier0/scoop-ghproxy/master/script.ps1" | iex
-Install-Scoop
-
-# 设置缓存目录（下载的安装包存这里）
-scoop config cache_path 'D:\Scoop\cache'
-
-
-
-scoop bucket add extras https://ghfast.top/https://github.com/ScoopInstaller/Extras
-scoop bucket add sysinternals https://ghfast.top/https://github.com/niheaven/scoop-sysinternals
-
+scoop install main/innounp
+scoop install extras/asar7z
 scoop install extras/windhawk
 scoop install extras/rustdesk
 scoop install main/ffmpeg
+scoop install main/mingw
 scoop install extras/ffmpeg-batch
 scoop install sysinternals/zoomit
 scoop install extras/qtscrcpy
-scoop install extras/another-redis-desktop-manager
 scoop install extras/cc-switch
 scoop install extras/localsend
 scoop install extras/oss-browser
@@ -38,35 +24,36 @@ scoop install extras/uniextract2
 scoop install extras/sublime-text
 scoop install extras/potplayer
 scoop install extras/helium
-scoop install extras/fiddler
 scoop install extras/neatdownloadmanager
-scoop install extras/cheat-engine
 scoop install extras/qimgv-video
 scoop install extras/clash-verge-rev
+scoop install extras/fiddler
+scoop install extras/cheat-engine
 scoop install extras/64gram
 scoop install extras/zed
-scoop install extras/geekuninstaller
-scoop install extras/cpu-z
-scoop install extras/dismplusplus
+scoop install extras/winmerge
 scoop install extras/pot
 scoop install main/python
 scoop install main/bun
+scoop install main/nodejs
 # scoop install main/go
-# scoop install extras/opencode-desktop
+scoop install extras/opencode-desktop
 # scoop install extras/obsidian
+# scoop install main/zeroclaw
+# scoop install rustup
 
-scoop bucket add zedg https://ghfast.top/https://github.com/x6nux/scoop-zedg
-scoop install zedg
+scoop install nonportable/sandboxie-plus-np
 
-scoop bucket add svier0 https://ghfast.top/https://github.com/svier0/scoopbucket
+scoop install svier0/zedg
 scoop install svier0/MouseInc
-scoop install svier0/aardio -s
-scoop install svier0/MusicFree -s
-scoop install svier0/pixpin -s
-scoop install svier0/HbuilderX -s
-scoop install svier0/video2x -s
-#scoop install svier0/ZCode -s
-
+scoop install svier0/aardio
+scoop install svier0/MusicFree
+scoop install svier0/pixpin
+scoop install svier0/HbuilderX
+scoop install svier0/video2x
+scoop install svier0/ardm
+scoop install svier0/tbtool
+scoop install svier0/FrpcTray
 
 
 # end
