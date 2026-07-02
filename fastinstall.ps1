@@ -19,11 +19,11 @@ Install-Scoop
 # 设置缓存目录（下载的安装包存这里）
 scoop config cache_path 'D:\Scoop\cache'
 
-scoop bucket add main https://gh-proxy.com/https://github.com/ScoopInstaller/Main
-scoop bucket add extras https://gh-proxy.com/https://github.com/ScoopInstaller/Extras
+scoop bucket add main         https://gh-proxy.com/https://github.com/ScoopInstaller/Main
+scoop bucket add extras       https://gh-proxy.com/https://github.com/ScoopInstaller/Extras
+scoop bucket add nonportable  https://gh-proxy.com/https://github.com/ScoopInstaller/Nonportable
 scoop bucket add sysinternals https://gh-proxy.com/https://github.com/niheaven/scoop-sysinternals
-scoop bucket add nonportable https://gh-proxy.com/https://github.com/ScoopInstaller/Nonportable
-scoop bucket add svier0 https://gh-proxy.com/https://github.com/svier0/scoopbucket
+scoop bucket add svier0       https://gh-proxy.com/https://github.com/svier0/scoopbucket
 
 
 # end
