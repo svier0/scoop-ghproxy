@@ -1,7 +1,7 @@
 # =============================================================================
 # Win11 Scoop安装脚本
 # 用法: irm https://ghfast.top/https://raw.githubusercontent.com/svier0/scoop-ghproxy/master/fastinstall.ps1 | iex
-# 功能: 安装Scoop
+# 功能: 快速在D盘安装Scoop
 # =============================================================================
 
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
