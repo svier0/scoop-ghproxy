@@ -318,7 +318,8 @@ function Install-Scoop {
         Enable-Proxy
         scoop install git
         scoop bucket rm main
-        scoop bucket add main "$($script:ProxyUrl)/https://github.com/ScoopInstaller/Main"
+        # scoop bucket add main "$($script:ProxyUrl)/https://github.com/ScoopInstaller/Main"
+        git clone --depth 1 "$($script:ProxyUrl)/https://github.com/ScoopInstaller/Main" "$env:SCOOP\buckets\main"
         scoop install 7zip
     } else {
         irm "https://raw.githubusercontent.com/ScoopInstaller/Install/master/install.ps1" | iex
