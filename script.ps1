@@ -320,9 +320,9 @@ function Show-Menu {
         if ($existing -eq "'GRADLE_PROXY' is not set") { scoop config GITHUB_PROXY $script:ProxyUrl }
         scoop config GRADLE_PROXY https://mirrors.aliyun.com/gradle/
         Enable-Proxy
-    } else if ($choice -eq '2') {
+    } elseif ($choice -eq '2') {
         Disable-Proxy
-    } else if ($choice -eq '5') {
+    } elseif ($choice -eq '5') {
         Write-Host '安装Scoop...'
         Install-Scoop
     } else {
