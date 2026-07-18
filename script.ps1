@@ -153,34 +153,6 @@ ${indent}# === END SCOOP-GITHUB-PROXY ===
 
     Write-Host "OK: download.ps1 已 patch ($downloadPs1)"
 
-    # 写入 Scoop 配置
-    $scoopDir = Find-ScoopDir
-    if ($scoopDir) {
-        $configFile = "$scoopDir\config.json"
-        $config = @{}
-        if (Test-Path $configFile) {
-            try {
-                $rawJson = Get-Content $configFile -Raw -Encoding UTF8
-                if ($rawJson.Trim() -eq '') { $config = @{} }
-                else {
-                    $config = $rawJson | ConvertFrom-Json | ForEach-Object {
-                        $hash = @{}; $_.PSObject.Properties | ForEach-Object { $hash[$_.Name] = $_.Value }; $hash
-                    }
-                }
-                if (!$config) { $config = @{} }
-            } catch {
-                Write-Host "WARNING: config.json 解析失败，将备份后重新创建" -ForegroundColor Yellow
-                Copy-Item $configFile "$configFile.bak-$(Get-Date -Format 'yyyyMMddHHmmss')"
-                $config = @{}
-            }
-        }
-        $config['GITHUB_PROXY'] = $ProxyUrl
-        $config | ConvertTo-Json -Depth 3 | ForEach-Object {
-            [System.IO.File]::WriteAllText($configFile, $_, $utf8NoBom)
-        }
-        Write-Host "OK: GITHUB_PROXY = $ProxyUrl"
-    }
-
     Write-Host ""
     Write-Host "============================================" -ForegroundColor Green
     Write-Host "  scoop-github-proxy 已启用！" -ForegroundColor Green
@@ -307,17 +279,6 @@ function Show-Status {
     }
 }
 
-function Get-ProxyConfig {
-    $scoopDir = Find-ScoopDir
-    if (!$scoopDir) { return $null }
-    $configFile = "$scoopDir\config.json"
-    if (!(Test-Path $configFile)) { return $null }
-    try {
-        $config = Get-Content $configFile -Raw -Encoding UTF8 | ConvertFrom-Json
-        return $config.GITHUB_PROXY
-    } catch { return $null }
-}
-
 function Install-Scoop {
     Write-Host "安装Scoop..."
     if ($script:ProxyUrl) {
@@ -348,45 +309,24 @@ function Show-Menu {
     Write-Host '========================================' -ForegroundColor Cyan
     Write-Host ''
 
-    if ( $ghproxy_status -ge 11){
-        Write-Host '  5. 输入代理地址安装scoop'
-        Write-Host ''
-        $choice = Read-Host '请输入 [5]'
-        if ($choice -eq '5') {
-            $newProxy = Read-Host '请输入新的代理地址'
-            if ($newProxy) {
-                $script:ProxyUrl = $newProxy
-                Write-Host "安装Scoop..."
-            } else {
-                Write-Host '未输入代理地址，直连安装。' -ForegroundColor Yellow
-            }
-            Install-Scoop
-        } else {
-            Write-Host "无效输入: $choice" -ForegroundColor Red
-        }
-    } elseif ( $ghproxy_status -eq 1) {
-        Write-Host '  2. 取消注入，恢复原版'
-        Write-Host ''
-        $choice = Read-Host '请输入 [2]'
-        if ($choice -eq '2') {
-            Disable-Proxy
-        } else {
-            Write-Host "无效输入: $choice" -ForegroundColor Red
-        }
+    Write-Host '  1. 开启注入'
+    Write-Host '  2. 取消注入，恢复原版'
+    Write-Host '  5. 安装scoop'
+    Write-Host ''
+    $choice = Read-Host '请输入 [1,2]'
+    if ($choice -eq '1') {
+        # 如果已有配置，沿用现有代理地址
+        $existing = scoop config GRADLE_PROXY
+        if ($existing -eq "'GRADLE_PROXY' is not set") { scoop config GITHUB_PROXY $script:ProxyUrl }
+        scoop config GRADLE_PROXY https://mirrors.aliyun.com/gradle/
+        Enable-Proxy
+    if ($choice -eq '2') {
+        Disable-Proxy
+    if ($choice -eq '5') {
+        Write-Host '安装Scoop...'
+        Install-Scoop
     } else {
-        Write-Host '  1. 开启注入'
-        Write-Host '  4. 指定代理地址并注入'
-        Write-Host ''
-        $choice = Read-Host '请输入 [1,4]'
-        if ($choice -eq '1') {
-            # 如果已有配置，沿用现有代理地址
-            $existing = Get-ProxyConfig
-            if ($existing) { $script:ProxyUrl = $existing }
-            scoop config GRADLE_PROXY https://mirrors.aliyun.com/gradle/
-            Enable-Proxy
-        } else {
-            Write-Host "无效输入: $choice" -ForegroundColor Red
-        }
+        Write-Host "无效输入: $choice" -ForegroundColor Red
     }
 }
 
