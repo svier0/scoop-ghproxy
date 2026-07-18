@@ -30,6 +30,7 @@ scoop config cache_path 'D:\Scoop\cache'
 Write-Host "添加仓库"
 git clone --depth 1 https://gh-proxy.com/https://github.com/ScoopInstaller/Main         "$env:SCOOP\buckets\main"
 git clone --depth 1 https://gh-proxy.com/https://github.com/ScoopInstaller/Extras       "$env:SCOOP\buckets\extras"
+git clone --depth 1 https://gh-proxy.com/https://github.com/ScoopInstaller/Java         "$env:SCOOP\buckets\Java"
 git clone --depth 1 https://gh-proxy.com/https://github.com/ScoopInstaller/Nonportable  "$env:SCOOP\buckets\nonportable"
 git clone --depth 1 https://gh-proxy.com/https://github.com/niheaven/scoop-sysinternals "$env:SCOOP\buckets\sysinternals"
 git clone --depth 1 https://gh-proxy.com/https://github.com/svier0/scoopbucket          "$env:SCOOP\buckets\svier0"
