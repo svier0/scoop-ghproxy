@@ -132,6 +132,14 @@ ${indent}    `$url -match '^https?://(github\.com|raw\.githubusercontent\.com|ap
 ${indent}) {
 ${indent}    `$url = "`$ghProxy/`$url"
 ${indent}}
+${indent}# Gradle 使用镜像
+${indent}`$gradleProxy = get_config GRADLE_PROXY
+${indent}if (
+${indent}    `$gradleProxy -and
+${indent}    `$url -match '^https://services.gradle.org/distributions/(.*)'
+${indent}) {
+${indent}    `$url = "`$gradleProxy`$($matches[1])"
+${indent}}
 ${indent}# === END SCOOP-GITHUB-PROXY ===
 "@
 
@@ -374,15 +382,8 @@ function Show-Menu {
             # 如果已有配置，沿用现有代理地址
             $existing = Get-ProxyConfig
             if ($existing) { $script:ProxyUrl = $existing }
+            scoop config GRADLE_PROXY https://mirrors.aliyun.com/gradle/
             Enable-Proxy
-        } elseif ($choice -eq '' -or $choice -eq '4') {
-            $newProxy = Read-Host '请输入新的代理地址'
-            if ($newProxy) {
-                $script:ProxyUrl = $newProxy
-                Enable-Proxy
-            } else {
-                Write-Host '未输入代理地址，已取消。' -ForegroundColor Yellow
-            }
         } else {
             Write-Host "无效输入: $choice" -ForegroundColor Red
         }
