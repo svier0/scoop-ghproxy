@@ -193,32 +193,6 @@ function Disable-Proxy {
         if (!$Silent) { Write-Host "INFO: download.ps1 未被 patch，无需操作" }
     }
 
-    # 清除 Scoop 配置中的 GITHUB_PROXY
-    $scoopDir = Find-ScoopDir
-    if ($scoopDir) {
-        $configFile = "$scoopDir\config.json"
-        if (Test-Path $configFile) {
-            try {
-                $rawJson = Get-Content $configFile -Raw -Encoding UTF8
-                if ($rawJson.Trim() -eq '') { return }
-                $config = $rawJson | ConvertFrom-Json | ForEach-Object {
-                    $hash = @{}; $_.PSObject.Properties | ForEach-Object { $hash[$_.Name] = $_.Value }; $hash
-                }
-                if ($config -and $config.ContainsKey('GITHUB_PROXY')) {
-                    $config.Remove('GITHUB_PROXY')
-                    $utf8NoBom = New-Object System.Text.UTF8Encoding $false
-                    $configJson = $config | ConvertTo-Json -Depth 3
-                    [System.IO.File]::WriteAllText($configFile, $configJson, $utf8NoBom)
-                    if (!$Silent) { Write-Host "OK: 已清除 GITHUB_PROXY 配置" }
-                }
-            } catch {
-                if (!$Silent) {
-                    Write-Host "WARNING: config.json 解析失败，配置清除已跳过（不影响功能）" -ForegroundColor Yellow
-                }
-            }
-        }
-    }
-
     if (!$Silent) {
         Write-Host ""
         Write-Host "scoop-github-proxy 已禁用。" -ForegroundColor Yellow
