@@ -316,9 +316,10 @@ function Show-Menu {
     $choice = Read-Host '请输入 [1,2]'
     if ($choice -eq '1') {
         # 如果已有配置，沿用现有代理地址
+        $existing = scoop config GITHUB_PROXY
+        if (-not $existing) { scoop config GITHUB_PROXY $script:ProxyUrl }
         $existing = scoop config GRADLE_PROXY
-        if ($existing -eq "'GRADLE_PROXY' is not set") { scoop config GITHUB_PROXY $script:ProxyUrl }
-        scoop config GRADLE_PROXY https://mirrors.aliyun.com/gradle/
+        if (-not $existing) { scoop config GRADLE_PROXY https://mirrors.aliyun.com/gradle/ }
         Enable-Proxy
     } elseif ($choice -eq '2') {
         Disable-Proxy
